@@ -1,0 +1,70 @@
+﻿<UserControl
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:Parking="clr-namespace:Parking" xmlns:sdk="http://schemas.microsoft.com/winfx/2006/xaml/presentation/sdk" x:Class="Parking.MainPage"
+    mc:Ignorable="d" Width="900" Height="599">
+    
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <DataTemplate DataType="Parking:Row">
+                <Grid Background="Red">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>     
+                    </Grid.ColumnDefinitions>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="40"/>
+                            <ColumnDefinition Width="40"/>
+                            <ColumnDefinition Width="40"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="40"/>
+                            <RowDefinition Height="40"/>
+                            <RowDefinition Height="40"/>
+                        </Grid.RowDefinitions>
+                        <CheckBox IsChecked="{Binding LeftSpaces}"/>
+                        <CheckBox/>
+                        <CheckBox IsChecked="{Binding RightSpaces}"/>                            
+                    </Grid>
+                </Grid>
+            </DataTemplate>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    
+    <Grid x:Name="LayoutRoot" Background="White" Width="900" RenderTransformOrigin="0.499,0.496" Margin="0,0,0,10">
+
+        <Grid.DataContext>
+            <Parking:MainWindowViewModel/>
+        </Grid.DataContext>
+
+        <sdk:Label HorizontalAlignment="Left" Height="28" Margin="10,31,0,0" VerticalAlignment="Top" Width="143" Content="Lot Size" FontSize="18"/>
+        <sdk:Label HorizontalAlignment="Left" Height="28" Margin="10,99,0,0" VerticalAlignment="Top" Width="143" Content="Discount" FontSize="18"/>
+        <sdk:Label HorizontalAlignment="Left" Height="28" Margin="10,180,0,0" VerticalAlignment="Top" Width="143" Content="Learning Rate" FontSize="18"/>
+        <TextBox HorizontalAlignment="Left" Height="49" Margin="173,78,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="190" Text="{Binding Discount, Mode=TwoWay}" FontSize="36"/>
+        <TextBox HorizontalAlignment="Left" Height="50" Margin="173,158,0,0" TextWrapping="Wrap" Text="{Binding LearningRate, Mode=TwoWay}" VerticalAlignment="Top" Width="190" FontSize="36"/>
+        <Slider HorizontalAlignment="Left" Height="26" Margin="173,127,0,0" VerticalAlignment="Top" Width="190" Maximum="1" Value="{Binding Discount, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+        <Slider HorizontalAlignment="Left" Height="28" Margin="173,208,0,0" VerticalAlignment="Top" Width="190" Maximum="1" Value="{Binding LearningRate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+        <ComboBox x:Name="rowNum" HorizontalAlignment="Left" Height="49" Margin="173,10,0,0" VerticalAlignment="Top" Width="68" FontSize="36" SelectedItem="{Binding RowNum, Mode=TwoWay}">
+            <ComboBoxItem Content="2"/>
+            <ComboBoxItem Content="3"/>
+            <ComboBoxItem Content="4"/>
+            <ComboBoxItem Content="5"/>
+        </ComboBox>
+        <ComboBox x:Name="rowLength" HorizontalAlignment="Left" Height="49" Margin="279,10,0,0" VerticalAlignment="Top" Width="84" FontSize="36" SelectedItem="{Binding RowLength, Mode=TwoWay}">
+            <ComboBoxItem Content="5"/>
+            <ComboBoxItem Content="8"/>
+            <ComboBoxItem Content="10"/>
+            <ComboBoxItem Content="15"/>
+        </ComboBox>
+        <sdk:Label HorizontalAlignment="Left" Height="49" Margin="246,12,0,0" VerticalAlignment="Top" Width="28" Content="X" FontSize="36"/>
+        <Button Content="Draw Lot" HorizontalAlignment="Left" Height="65" Margin="10,279,0,0" VerticalAlignment="Top" Width="353" FontSize="36" Command="{Binding DrawLotCommand, Mode=OneWay}"/>
+        <Button Content="Train" HorizontalAlignment="Left" Height="65" Margin="10,383,0,0" VerticalAlignment="Top" Width="353" FontSize="36" Command="{Binding TrainCommand, Mode=OneWay}"/>
+        <Button Content="Test" HorizontalAlignment="Left" Height="65" Margin="10,492,0,0" VerticalAlignment="Top" Width="353" FontSize="36" Command="{Binding TestCommand, Mode=OneWay}"/>
+        <StackPanel HorizontalAlignment="Left" Height="495" Margin="400,31,0,0" VerticalAlignment="Top" Width="43"/>
+        <StackPanel HorizontalAlignment="Left" Height="495" Margin="400,31,0,0" VerticalAlignment="Top" Width="43"/>
+        <sdk:DataGrid HorizontalAlignment="Left" Height="569" Margin="400,10,0,0" VerticalAlignment="Top" Width="490" ItemsSource="{Binding Rows}" Template="{StaticResource DataGridLaneTemplate}" RenderTransformOrigin="0.5,0.5"/>
+
+    </Grid>
+</UserControl>
